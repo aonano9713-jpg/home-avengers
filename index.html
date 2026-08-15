@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>おてつだいポイントカード</title>
+<style>
+body{font-family:sans-serif;background:#fff5f8;margin:0;color:#555}
+header{background:#ff8fb3;color:white;padding:25px;text-align:center}
+.card{background:white;margin:20px;padding:20px;border-radius:20px;text-align:center;box-shadow:0 3px 10px #ddd}
+.points{font-size:55px;color:#ff6699;font-weight:bold}
+.task,.reward{background:white;margin:12px 20px;padding:15px;border-radius:15px;box-shadow:0 2px 8px #ddd}
+button{border:0;border-radius:12px;padding:10px 15px;font-weight:bold}
+.do{background:#ff8fb3;color:white;float:right}
+.use{background:#ffd36e}
+h2{margin-left:20px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🌸 おてつだいポイントカード</h1>
+<p>おてつだいをしてポイントをためよう！</p>
+</header>
+
+<div class="card">
+<p>いまのポイント</p>
+<div class="points" id="points">0</div>
+<p>ポイント</p>
+<div id="message">おてつだいしてポイントGET！😊</div>
+</div>
+
+<h2>✨ おてつだい</h2>
+
+<div class="task">🍽️ お皿を片付ける<br>＋10ポイント
+<button class="do" onclick="add(10,'お皿を片付けたよ！')">できた！</button>
+</div>
+
+<div class="task">👕 洗濯物をたたむ<br>＋20ポイント
+<button class="do" onclick="add(20,'洗濯物をたたんだよ！')">できた！</button>
+</div>
+
+<div class="task">🛁 お風呂そうじ<br>＋30ポイント
+<button class="do" onclick="add(30,'お風呂そうじありがとう！')">できた！</button>
+</div>
+
+<div class="task">🧹 お部屋をそうじする<br>＋30ポイント
+<button class="do" onclick="add(30,'お部屋がきれいになったよ！')">できた！</button>
+</div>
+
+<h2>🎁 ごほうび</h2>
+
+<div class="reward">
+🍭 おやつを買ってもらう<br>
+50ポイント<br><br>
+<button class="use" onclick="use(50)">ポイントを使う</button>
+</div>
+
+<div class="reward">
+🥤 好きなジュースを買ってもらう<br>
+80ポイント<br><br>
+<button class="use" onclick="use(80)">ポイントを使う</button>
+</div>
+
+<div class="reward">
+🎁 好きなものを買ってもらう<br>
+300ポイント<br><br>
+<button class="use" onclick="use(300)">ポイントを使う</button>
+</div>
+
+<script>
+let points=Number(localStorage.getItem("points"))||0;
+
+function show(){
+document.getElementById("points").textContent=points;
+localStorage.setItem("points",points);
+}
+
+function add(n,msg){
+points+=n;
+document.getElementById("message").textContent="🎉 "+msg+" +"+n+"ポイント！";
+show();
+}
+
+function use(n){
+if(points<n){
+document.getElementById("message").textContent="💦 あと"+(n-points)+"ポイント必要だよ";
+return;
+}
+points-=n;
+document.getElementById("message").textContent="🎁 ごほうびと交換したよ！";
+show();
+}
+
+show();
+</script>
+
+</body>
+</html>
