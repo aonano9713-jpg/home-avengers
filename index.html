@@ -2,98 +2,277 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>おてつだいポイントカード</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 おてつだいポイントカード</title>
+
 <style>
-body{font-family:sans-serif;background:#fff5f8;margin:0;color:#555}
-header{background:#ff8fb3;color:white;padding:25px;text-align:center}
-.card{background:white;margin:20px;padding:20px;border-radius:20px;text-align:center;box-shadow:0 3px 10px #ddd}
-.points{font-size:55px;color:#ff6699;font-weight:bold}
-.task,.reward{background:white;margin:12px 20px;padding:15px;border-radius:15px;box-shadow:0 2px 8px #ddd}
-button{border:0;border-radius:12px;padding:10px 15px;font-weight:bold}
-.do{background:#ff8fb3;color:white;float:right}
-.use{background:#ffd36e}
-h2{margin-left:20px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+  background:#fff5f8;
+  margin:0;
+  color:#555;
+}
+
+header{
+  background:#ff8fb3;
+  color:white;
+  padding:25px 15px;
+  text-align:center;
+}
+
+h1{
+  margin:0;
+  font-size:26px;
+}
+
+.card{
+  background:white;
+  margin:20px;
+  padding:25px 20px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 3px 10px #ddd;
+}
+
+.points{
+  font-size:60px;
+  color:#ff6699;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.point-label{
+  font-size:18px;
+}
+
+button{
+  border:0;
+  border-radius:14px;
+  padding:14px 20px;
+  margin:6px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.add{
+  background:#ff8fb3;
+  color:white;
+}
+
+.minus{
+  background:#ddd;
+  color:#555;
+}
+
+.exchange{
+  background:#ffd36e;
+  color:#555;
+  width:90%;
+  font-size:20px;
+}
+
+.reward{
+  background:#fff;
+  margin:20px;
+  padding:20px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 3px 10px #ddd;
+}
+
+.reward-card{
+  border:3px solid #ffd36e;
+  border-radius:18px;
+  padding:20px;
+  margin-top:15px;
+  background:#fffdf3;
+}
+
+.reward-card h2{
+  color:#ff9f00;
+  margin:5px;
+}
+
+input{
+  width:80%;
+  padding:14px;
+  border:2px solid #ffb6ca;
+  border-radius:12px;
+  font-size:18px;
+  text-align:center;
+  margin:10px;
+  box-sizing:border-box;
+}
+
+.message{
+  min-height:28px;
+  font-size:16px;
+  color:#ff6699;
+  font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🌸 おてつだいポイントカード</h1>
-<p>おてつだいをしてポイントをためよう！</p>
+  <h1>🌸 おてつだいポイントカード</h1>
 </header>
 
 <div class="card">
-<p>いまのポイント</p>
-<div class="points" id="points">0</div>
-<p>ポイント</p>
-<div id="message">おてつだいしてポイントGET！😊</div>
+
+  <div class="point-label">現在のポイント</div>
+
+  <div class="points" id="points">0</div>
+
+  <button class="add" onclick="addPoints(1)">＋1ポイント</button>
+
+  <button class="add" onclick="addPoints(5)">＋5ポイント</button>
+
+  <button class="add" onclick="addPoints(10)">＋10ポイント</button>
+
+  <br>
+
+  <button class="minus" onclick="addPoints(-1)">−1ポイント</button>
+
+  <div class="message" id="message"></div>
+
 </div>
 
-<h2>✨ おてつだい</h2>
+<div class="card">
 
-<div class="task">🍽️ お皿を片付ける<br>＋10ポイント
-<button class="do" onclick="add(10,'お皿を片付けたよ！')">できた！</button>
+  <h2>✏️ ポイントを入力</h2>
+
+  <input
+    id="pointInput"
+    type="number"
+    min="1"
+    placeholder="ポイント数を入力"
+  >
+
+  <br>
+
+  <button class="add" onclick="inputPoints()">
+    ポイントを追加
+  </button>
+
 </div>
-
-<div class="task">👕 洗濯物をたたむ<br>＋20ポイント
-<button class="do" onclick="add(20,'洗濯物をたたんだよ！')">できた！</button>
-</div>
-
-<div class="task">🛁 お風呂そうじ<br>＋30ポイント
-<button class="do" onclick="add(30,'お風呂そうじありがとう！')">できた！</button>
-</div>
-
-<div class="task">🧹 お部屋をそうじする<br>＋30ポイント
-<button class="do" onclick="add(30,'お部屋がきれいになったよ！')">できた！</button>
-</div>
-
-<h2>🎁 ごほうび</h2>
 
 <div class="reward">
-🍭 おやつを買ってもらう<br>
-50ポイント<br><br>
-<button class="use" onclick="use(50)">ポイントを使う</button>
-</div>
 
-<div class="reward">
-🥤 好きなジュースを買ってもらう<br>
-80ポイント<br><br>
-<button class="use" onclick="use(80)">ポイントを使う</button>
-</div>
+  <h2>🎁 100円交換カード</h2>
 
-<div class="reward">
-🎁 好きなものを買ってもらう<br>
-300ポイント<br><br>
-<button class="use" onclick="use(300)">ポイントを使う</button>
+  <p>
+    10ポイントたまったら<br>
+    100円交換カードと交換できます！
+  </p>
+
+  <div class="reward-card">
+
+    <h2>💳 100円交換カード</h2>
+
+    <p id="exchangeStatus">
+      10ポイントで交換できます
+    </p>
+
+    <button
+      class="exchange"
+      onclick="exchangeReward()"
+    >
+      100円カードに交換
+    </button>
+
+  </div>
+
 </div>
 
 <script>
-let points=Number(localStorage.getItem("points"))||0;
 
-function show(){
-document.getElementById("points").textContent=points;
-localStorage.setItem("points",points);
+let points = Number(localStorage.getItem("points")) || 0;
+
+function updateDisplay(){
+
+  document.getElementById("points").textContent = points;
+
+  if(points >= 10){
+    document.getElementById("exchangeStatus").textContent =
+      "🎉 100円交換カードに交換できます！";
+  }else{
+    document.getElementById("exchangeStatus").textContent =
+      "あと " + (10 - points) + "ポイントで100円！";
+  }
+
+  localStorage.setItem("points", points);
 }
 
-function add(n,msg){
-points+=n;
-document.getElementById("message").textContent="🎉 "+msg+" +"+n+"ポイント！";
-show();
+function addPoints(value){
+
+  points += value;
+
+  if(points < 0){
+    points = 0;
+  }
+
+  document.getElementById("message").textContent =
+    value > 0
+    ? "✨ " + value + "ポイント追加！"
+    : "ポイントを1減らしました";
+
+  updateDisplay();
 }
 
-function use(n){
-if(points<n){
-document.getElementById("message").textContent="💦 あと"+(n-points)+"ポイント必要だよ";
-return;
-}
-points-=n;
-document.getElementById("message").textContent="🎁 ごほうびと交換したよ！";
-show();
+function inputPoints(){
+
+  const input = document.getElementById("pointInput");
+
+  const value = Number(input.value);
+
+  if(!value || value <= 0){
+
+    document.getElementById("message").textContent =
+      "ポイントを入力してね😊";
+
+    return;
+  }
+
+  points += value;
+
+  input.value = "";
+
+  document.getElementById("message").textContent =
+    "🎉 " + value + "ポイント追加！";
+
+  updateDisplay();
 }
 
-show();
+function exchangeReward(){
+
+  if(points < 10){
+
+    alert(
+      "まだ交換できないよ😊\nあと " +
+      (10 - points) +
+      "ポイント必要です！"
+    );
+
+    return;
+  }
+
+  points -= 10;
+
+  alert(
+    "🎉 100円交換カードをGET！\n\n" +
+    "10ポイントを使いました。"
+  );
+
+  document.getElementById("message").textContent =
+    "💳 100円交換カードGET！";
+
+  updateDisplay();
+}
+
+updateDisplay();
+
 </script>
 
 </body>
